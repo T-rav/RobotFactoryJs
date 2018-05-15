@@ -22,18 +22,22 @@ let RobotFactory = function(partsSuppliers){
                     With_Power:function(powerType){
                       _powerType = powerType;
                       return {
-                        
                         Cost_Robot:function(){
                         
-                          // todo: store cheapest parts with supplier to contact
-                          let parts = []; // collect all cost
-                          let cost = 0;
+                          let parts = [];
 
                           let fetchCost = function(supplier, partType){
                             let partCostResponse = supplier.Get_Part_Cost(partType);
                             if(partCostResponse.Status == "Found"){
-                              cost += partCostResponse.Cost;
-                              parts.push({type:partType, cost:partCostResponse.Cost, supplier:supplier});
+                              let partIndex = parts.findIndex(part=>{
+                                return part.Type == partType;
+                              });
+
+                              if(partIndex == -1){
+                                parts.push({Type:partType, Cost:partCostResponse.Cost, Supplier:supplier})
+                              }else{
+                                parts[partIndex] = {Type:partType, Cost:partCostResponse.Cost, Supplier:supplier};
+                              }
                             }
                           }
 
@@ -45,12 +49,18 @@ let RobotFactory = function(partsSuppliers){
                             fetchCost(supplier, _powerType);
                           });
 
-                          // todo : find cheapest for each type and add 
+                          let cost = 0;
+                          parts.forEach(part=>{
+                            cost += part.Cost;
+                          });
+
                           return {
                             Cost: cost.toFixed(2),
                             Parts : parts,
                             Purchase_Robot: function(){
-                              //parts[0].supplier.Purchase_Part();
+                              parts.forEach(lineItem=>{
+                                lineItem.Supplier.Purchase_Part(lineItem.Type);
+                              });
                             }
                           }
                         }

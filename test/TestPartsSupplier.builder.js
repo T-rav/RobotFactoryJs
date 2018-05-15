@@ -5,8 +5,8 @@ let TestPartsSupplierBuilder = function(){
             _parts.push(part);
             return this;
         },
-        Build:function(){
-            return new PartsSupplier(_parts);
+        Build:function(name){
+            return new PartsSupplier(_parts, name);
         }
     }
 }
