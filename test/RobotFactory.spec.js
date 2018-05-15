@@ -37,11 +37,12 @@ describe("RobotFactory", function () {
 										 .With_Part({Name:Arms.Boxing_Gloves, Cost:99.00})
 										 .With_Part({Name:Movement.Tracks, Cost:1235.50})
 										 .With_Part({Name:Power.Biomass, Cost:999.99})
-										 .Build("1");
+										 .Build();
 					let supplier_2 = new TestPartsSupplierBuilder()
 										.With_Part({Name:Heads.Standard, Cost:90.99})
-										.Build("2");
-					let supplier_3 = new TestPartsSupplierBuilder().Build("3");
+										.Build();
+					let supplier_3 = new TestPartsSupplierBuilder()
+										.Build();
 					let suppliers = [supplier_1, supplier_2, supplier_3];
 					let robotFactory = new RobotFactory(suppliers);
 					// act

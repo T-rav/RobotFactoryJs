@@ -6,7 +6,7 @@ let TestPartsSupplierBuilder = function(){
             return this;
         },
         Build:function(name){
-            return new PartsSupplier(_parts, name);
+            return new PartsSupplier(_parts);
         }
     }
 }

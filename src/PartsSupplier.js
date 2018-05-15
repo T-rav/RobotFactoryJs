@@ -1,6 +1,7 @@
-let PartsSupplier = function(parts, name){
+let PartsSupplier = function(parts){
     let _parts = parts;
 
+    // todo : test this
     return {
         Get_Part_Cost: function(partName){
             var foundPart = _parts.find(part=>{
