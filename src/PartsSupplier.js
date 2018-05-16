@@ -4,7 +4,7 @@ let PartsSupplier = function(parts){
     // todo : test this
     return {
         Get_Part_Cost: function(partName){
-            var foundPart = _parts.find(part=>{
+            let foundPart = _parts.find(part=>{
                 return part.Name == partName;
             });
 
@@ -15,7 +15,7 @@ let PartsSupplier = function(parts){
             return {Status:"Not_Found"};
         },
         Purchase_Part:function(partsToPurchase){
-            // todo: assert this was called
+            // simply assert this was called
         }
     }
 };
