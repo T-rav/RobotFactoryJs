@@ -26,5 +26,5 @@ let Movement = {
 let Power = {
   Solar : "Solar",
   Battery : "Recharegable Batter",
-  Biomass : "Your own poop!"
+  Biomass : "Biomass"
 };

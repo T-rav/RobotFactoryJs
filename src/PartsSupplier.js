@@ -1,7 +1,7 @@
-let PartsSupplier = function(parts){
+let PartsSupplier = function(parts, name){
     let _parts = parts;
+    let _name = name;
 
-    // todo : test this
     return {
         Get_Part_Cost: function(partName){
             let foundPart = _parts.find(part=>{
@@ -15,7 +15,8 @@ let PartsSupplier = function(parts){
             return {Status:"Not_Found"};
         },
         Purchase_Part:function(partsToPurchase){
-            // simply assert this was called
+            // simply assert this was called, logging here for demo
+            console.log("Purchasing " + partsToPurchase + " from "+ name);
         }
     }
 };

@@ -11,6 +11,7 @@ let RobotFactory = function(partsSuppliers){
 
     let fetchCost = function(supplier, partType){
       let partCostResponse = supplier.Get_Part_Cost(partType);
+      
       if(partCostResponse.Status == "Found"){
         let partIndex = parts.findIndex(part=>{
           return part.Type == partType;
@@ -18,7 +19,7 @@ let RobotFactory = function(partsSuppliers){
 
         if(partIndex == -1){
           parts.push({Type:partType, Cost:partCostResponse.Cost, Supplier:supplier})
-        }else{
+        }else if(parts[partIndex].Cost > partCostResponse.Cost){
           parts[partIndex] = {Type:partType, Cost:partCostResponse.Cost, Supplier:supplier};
         }
       }

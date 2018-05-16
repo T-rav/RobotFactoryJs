@@ -5,7 +5,7 @@ describe("PartsSupplier", function () {
                 
                 // arrange
                 let parts = [];
-                let sut = new PartsSupplier(parts);
+                let sut = CreatePartsSupplier(parts);
                 // act
                 let acutal = sut.Get_Part_Cost(Heads.Standard);
                 // assert
@@ -16,7 +16,7 @@ describe("PartsSupplier", function () {
                 
                 // arrange
                 let parts = [];
-                let sut = new PartsSupplier(parts);
+                let sut = CreatePartsSupplier(parts);
                 // act
                 let actual = sut.Get_Part_Cost(Heads.Standard);
                 // assert
@@ -29,7 +29,7 @@ describe("PartsSupplier", function () {
                 
                 // arrange
                 let parts = [{Name:Heads.Infrared, Cost:999.99}];
-                let sut = new PartsSupplier(parts);
+                let sut = CreatePartsSupplier(parts);
                 // act
                 let actual = sut.Get_Part_Cost(Heads.Infrared);
                 // assert
@@ -40,7 +40,7 @@ describe("PartsSupplier", function () {
                 
                 // arrange
                 let parts = [{Name:Heads.Infrared, Cost:999.99}];
-                let sut = new PartsSupplier(parts);
+                let sut = CreatePartsSupplier(parts);
                 // act
                 let actual = sut.Get_Part_Cost(Heads.Infrared);
                 // assert
@@ -50,3 +50,7 @@ describe("PartsSupplier", function () {
         });
     });
 });
+
+function CreatePartsSupplier(parts) {
+    return new PartsSupplier(parts);
+}
