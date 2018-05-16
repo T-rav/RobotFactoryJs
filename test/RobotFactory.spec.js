@@ -4,15 +4,15 @@ describe("RobotFactory", function () {
 			describe("Given only 1 supply provides parts", function(){
 				it("Should build robot at supplier cost", function() {
 					// arrange
-					let supplier_1 = new TestPartsSupplierBuilder()
+					let supplier_1 = new PartsSupplierBuilder()
 										 .With_Part({Name:Heads.Standard, Cost:100.99})
 										 .With_Part({Name:Body.Square, Cost:400.05})
 										 .With_Part({Name:Arms.Boxing_Gloves, Cost:99.00})
 										 .With_Part({Name:Movement.Tracks, Cost:1235.50})
 										 .With_Part({Name:Power.Biomass, Cost:999.99})
 										 .Build();
-					let supplier_2 = new TestPartsSupplierBuilder().Build();
-					let supplier_3 = new TestPartsSupplierBuilder().Build();
+					let supplier_2 = new PartsSupplierBuilder().Build();
+					let supplier_3 = new PartsSupplierBuilder().Build();
 					let suppliers = [supplier_1, supplier_2, supplier_3];
 					let robotFactory = new RobotFactory(suppliers);
 					// act
@@ -31,17 +31,17 @@ describe("RobotFactory", function () {
 			describe("Given 2 suppliers provide 1 of the same parts at different prices", function(){
 				it("Should build robot at cheapest cost", function() {
 					// arrange
-					let supplier_1 = new TestPartsSupplierBuilder()
+					let supplier_1 = new PartsSupplierBuilder()
 										 .With_Part({Name:Heads.Standard, Cost:100.99})
 										 .With_Part({Name:Body.Square, Cost:400.05})
 										 .With_Part({Name:Arms.Boxing_Gloves, Cost:99.00})
 										 .With_Part({Name:Movement.Tracks, Cost:1235.50})
 										 .With_Part({Name:Power.Biomass, Cost:999.99})
 										 .Build();
-					let supplier_2 = new TestPartsSupplierBuilder()
+					let supplier_2 = new PartsSupplierBuilder()
 										.With_Part({Name:Heads.Standard, Cost:90.99})
 										.Build();
-					let supplier_3 = new TestPartsSupplierBuilder()
+					let supplier_3 = new PartsSupplierBuilder()
 										.Build();
 					let suppliers = [supplier_1, supplier_2, supplier_3];
 					let robotFactory = new RobotFactory(suppliers);
@@ -61,21 +61,21 @@ describe("RobotFactory", function () {
 			describe("Given 3 suppliers provide all of the same parts at different prices", function(){
 				it("Should build robot at cheapest cost", function() {
 					// arrange
-					let supplier_1 = new TestPartsSupplierBuilder()
+					let supplier_1 = new PartsSupplierBuilder()
 										 .With_Part({Name:Heads.Standard, Cost:100.99})
 										 .With_Part({Name:Body.Square, Cost:400.05})
 										 .With_Part({Name:Arms.Boxing_Gloves, Cost:99.00})
 										 .With_Part({Name:Movement.Tracks, Cost:1235.50})
 										 .With_Part({Name:Power.Biomass, Cost:999.99})
 										 .Build();
-					let supplier_2 = new TestPartsSupplierBuilder()
+					let supplier_2 = new PartsSupplierBuilder()
 										.With_Part({Name:Heads.Standard, Cost:40.91})
 										.With_Part({Name:Body.Square, Cost:410.05})
 										.With_Part({Name:Arms.Boxing_Gloves, Cost:199.00})
 										.With_Part({Name:Movement.Tracks, Cost:1135.50})
 										.With_Part({Name:Power.Biomass, Cost:990.99})
 										.Build();
-					let supplier_3 = new TestPartsSupplierBuilder()
+					let supplier_3 = new PartsSupplierBuilder()
 										.With_Part({Name:Heads.Standard, Cost:110.95})
 										.With_Part({Name:Body.Square, Cost:401.05})
 										.With_Part({Name:Arms.Boxing_Gloves, Cost:95.95})
@@ -104,15 +104,15 @@ describe("RobotFactory", function () {
 			describe("Given only 1 supply provides parts", function(){
 				it("Should purchase robot from 1 supplier", function() {
 					// arrange
-					let supplier_1 = new TestPartsSupplierBuilder()
+					let supplier_1 = new PartsSupplierBuilder()
 										 .With_Part({Name:Heads.Standard, Cost:100.99})
 										 .With_Part({Name:Body.Square, Cost:400.05})
 										 .With_Part({Name:Arms.Boxing_Gloves, Cost:99.00})
 										 .With_Part({Name:Movement.Tracks, Cost:1235.50})
 										 .With_Part({Name:Power.Biomass, Cost:999.99})
 										 .Build();
-					let supplier_2 = new TestPartsSupplierBuilder().Build();
-					let supplier_3 = new TestPartsSupplierBuilder().Build();
+					let supplier_2 = new PartsSupplierBuilder().Build();
+					let supplier_3 = new PartsSupplierBuilder().Build();
 					spyOn(supplier_1, "Purchase_Part");
 					spyOn(supplier_2, "Purchase_Part");
 					spyOn(supplier_3, "Purchase_Part");
@@ -136,7 +136,7 @@ describe("RobotFactory", function () {
 			describe("Given 2 suppliers provide 1 of the same parts at different prices", function(){
 				it("Should purchase robot from 2 suppliers", function() {
 					// arrange
-					let supplier_1 = new TestPartsSupplierBuilder()
+					let supplier_1 = new PartsSupplierBuilder()
 										 .With_Part({Name:Heads.Standard, Cost:100.99})
 										 .With_Part({Name:Body.Square, Cost:400.05})
 										 .With_Part({Name:Arms.Boxing_Gloves, Cost:99.00})
@@ -144,11 +144,11 @@ describe("RobotFactory", function () {
 										 .With_Part({Name:Power.Biomass, Cost:999.99})
 										 .With_Name("Supplier 1")
 										 .Build();
-					let supplier_2 = new TestPartsSupplierBuilder()
+					let supplier_2 = new PartsSupplierBuilder()
 										.With_Part({Name:Heads.Standard, Cost:90.99})
 										.With_Name("Supplier 2")
 										.Build();
-					let supplier_3 = new TestPartsSupplierBuilder()
+					let supplier_3 = new PartsSupplierBuilder()
 										.With_Name("Supplier 3")
 										.Build();
 					spyOn(supplier_1, "Purchase_Part").and.callThrough();
@@ -177,7 +177,7 @@ describe("RobotFactory", function () {
 			describe("Given 3 suppliers provide all of the same parts at different prices", function(){
 				it("Should purchase robot from 3 suppliers", function() {
 					// arrange
-					let supplier_1 = new TestPartsSupplierBuilder()
+					let supplier_1 = new PartsSupplierBuilder()
 										 .With_Part({Name:Heads.Infrared, Cost:100.99})
 										 .With_Part({Name:Body.Triangular, Cost:400.05})
 										 .With_Part({Name:Arms.Pinchers, Cost:99.00})
@@ -186,7 +186,7 @@ describe("RobotFactory", function () {
 										 .With_Part({Name:Power.Solar, Cost:898.99})
 										 .With_Name("Supplier 1")
 										 .Build();
-					let supplier_2 = new TestPartsSupplierBuilder()
+					let supplier_2 = new PartsSupplierBuilder()
 										.With_Part({Name:Heads.Infrared, Cost:40.91})
 										.With_Part({Name:Body.Triangular, Cost:410.05})
 										.With_Part({Name:Arms.Pinchers, Cost:199.00})
@@ -194,7 +194,7 @@ describe("RobotFactory", function () {
 										.With_Part({Name:Power.Solar, Cost:990.99})
 										.With_Name("Supplier 2")
 										.Build();
-					let supplier_3 = new TestPartsSupplierBuilder()
+					let supplier_3 = new PartsSupplierBuilder()
 										.With_Part({Name:Heads.Infrared, Cost:110.95})
 										.With_Part({Name:Body.Triangular, Cost:401.05})
 										.With_Part({Name:Arms.Pinchers, Cost:95.95})

@@ -1,4 +1,4 @@
-let TestPartsSupplierBuilder = function(){
+let PartsSupplierBuilder = function(){
     let _parts = [];
     let _name = "(undefined)";
     return {
