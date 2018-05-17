@@ -1,3 +1,4 @@
+// an experiment - not sure it an improvement on raw part creation
 let RobotPartFactory=function(){
 
     return {

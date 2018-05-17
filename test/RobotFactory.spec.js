@@ -134,7 +134,6 @@ describe("RobotFactory", function () {
 				it("Should purchase robot from 1 supplier", function() {
 					// arrange
 					let robotPartFactory = new RobotPartFactory();
-					// new RobotPart(PartTypes.Head,Heads.Standard,100.99)
 					let supplier_1 = new CreateTestPartsSupplier()
 										 .With_Part(robotPartFactory.Create_Head(Heads.Standard, 100.99))
 										 .With_Part(new RobotPart(PartTypes.Body,Body.Square,400.05))
