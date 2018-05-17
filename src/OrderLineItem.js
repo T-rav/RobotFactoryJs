@@ -1,4 +1,4 @@
-let OrderLineItem = function(cost, partType, partDescription, supplier){
+let QuoteLineItem = function(cost, partType, partDescription, supplier){
     return {
         Type : partType,
         Description : partDescription,

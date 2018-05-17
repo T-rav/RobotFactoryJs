@@ -17,7 +17,7 @@ let RobotFactory = function(partsSuppliers){
           return part.Description == partDescription;
         });
 
-        let lineItem = new OrderLineItem(partCostResponse.Cost, partType, partDescription, supplier);
+        let lineItem = new QuoteLineItem(partCostResponse.Cost, partType, partDescription, supplier);
         if(partIndex == -1){
           order.push(lineItem)
         }else if(order[partIndex].Cost > partCostResponse.Cost){

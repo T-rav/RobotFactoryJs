@@ -4,15 +4,15 @@ describe("RobotFactory", function () {
 			describe("Given only 1 supply provides parts", function(){
 				it("Should build robot at supplier cost", function() {
 					// arrange
-					let supplier_1 = new PartsSupplierBuilder()
+					let supplier_1 = new CreateTestPartsSupplier()
 										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard, 100.99))
 										 .With_Part(new RobotPart(PartTypes.Body,Body.Square, 400.05))
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .Build();
-					let supplier_2 = new PartsSupplierBuilder().Build();
-					let supplier_3 = new PartsSupplierBuilder().Build();
+					let supplier_2 = new CreateTestPartsSupplier().Build();
+					let supplier_3 = new CreateTestPartsSupplier().Build();
 					let suppliers = [supplier_1, supplier_2, supplier_3];
 					let robotFactory = new RobotFactory(suppliers);
 					// act
@@ -31,17 +31,17 @@ describe("RobotFactory", function () {
 			describe("Given 2 suppliers provide 1 of the same parts at different prices", function(){
 				it("Should build robot at cheapest cost", function() {
 					// arrange
-					let supplier_1 = new PartsSupplierBuilder()
+					let supplier_1 = new CreateTestPartsSupplier()
 										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard,100.99))
 										 .With_Part(new RobotPart(PartTypes.Body,Body.Square,400.05))
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .Build();
-					let supplier_2 = new PartsSupplierBuilder()
+					let supplier_2 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,90.99))
 										.Build();
-					let supplier_3 = new PartsSupplierBuilder()
+					let supplier_3 = new CreateTestPartsSupplier()
 										.Build();
 					let suppliers = [supplier_1, supplier_2, supplier_3];
 					let robotFactory = new RobotFactory(suppliers);
@@ -61,21 +61,21 @@ describe("RobotFactory", function () {
 			describe("Given 3 suppliers provide all of the same parts at different prices", function(){
 				it("Should build robot at cheapest cost", function() {
 					// arrange
-					let supplier_1 = new PartsSupplierBuilder()
+					let supplier_1 = new CreateTestPartsSupplier()
 										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard,100.99))
 										 .With_Part(new RobotPart(PartTypes.Body,Body.Square,400.05))
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .Build();
-					let supplier_2 = new PartsSupplierBuilder()
+					let supplier_2 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,40.91))
 										.With_Part(new RobotPart(PartTypes.Body,Body.Square,410.05))
 										.With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,199.00))
 										.With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1135.50))
 										.With_Part(new RobotPart(PartTypes.Power,Power.Biomass,990.99))
 										.Build();
-					let supplier_3 = new PartsSupplierBuilder()
+					let supplier_3 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,110.95))
 										.With_Part(new RobotPart(PartTypes.Body,Body.Square,401.05))
 										.With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,95.95))
@@ -102,14 +102,14 @@ describe("RobotFactory", function () {
 			describe("Given all suppliers provides parts", function(){
 				it("Should return costing errors", function() {
 					// arrange
-					let supplier_1 = new PartsSupplierBuilder()
+					let supplier_1 = new CreateTestPartsSupplier()
 										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard, 100.99))
 										 .With_Part(new RobotPart(PartTypes.Body,Body.Square, 400.05))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .Build();
-					let supplier_2 = new PartsSupplierBuilder().Build();
-					let supplier_3 = new PartsSupplierBuilder().Build();
+					let supplier_2 = new CreateTestPartsSupplier().Build();
+					let supplier_3 = new CreateTestPartsSupplier().Build();
 					let suppliers = [supplier_1, supplier_2, supplier_3];
 					let robotFactory = new RobotFactory(suppliers);
 					// act
@@ -133,15 +133,17 @@ describe("RobotFactory", function () {
 			describe("Given only 1 supply provides parts", function(){
 				it("Should purchase robot from 1 supplier", function() {
 					// arrange
-					let supplier_1 = new PartsSupplierBuilder()
-										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard,100.99))
+					let robotPartFactory = new RobotPartFactory();
+					// new RobotPart(PartTypes.Head,Heads.Standard,100.99)
+					let supplier_1 = new CreateTestPartsSupplier()
+										 .With_Part(robotPartFactory.Create_Head(Heads.Standard, 100.99))
 										 .With_Part(new RobotPart(PartTypes.Body,Body.Square,400.05))
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .Build();
-					let supplier_2 = new PartsSupplierBuilder().Build();
-					let supplier_3 = new PartsSupplierBuilder().Build();
+					let supplier_2 = new CreateTestPartsSupplier().Build();
+					let supplier_3 = new CreateTestPartsSupplier().Build();
 					spyOn(supplier_1, "Purchase_Part");
 					spyOn(supplier_2, "Purchase_Part");
 					spyOn(supplier_3, "Purchase_Part");
@@ -165,7 +167,7 @@ describe("RobotFactory", function () {
 			describe("Given 2 suppliers provide 1 of the same parts at different prices", function(){
 				it("Should purchase robot from 2 suppliers", function() {
 					// arrange
-					let supplier_1 = new PartsSupplierBuilder()
+					let supplier_1 = new CreateTestPartsSupplier()
 										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard,100.99))
 										 .With_Part(new RobotPart(PartTypes.Body,Body.Square,400.05))
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
@@ -173,11 +175,11 @@ describe("RobotFactory", function () {
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .With_Name("Supplier 1")
 										 .Build();
-					let supplier_2 = new PartsSupplierBuilder()
+					let supplier_2 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,90.99))
 										.With_Name("Supplier 2")
 										.Build();
-					let supplier_3 = new PartsSupplierBuilder()
+					let supplier_3 = new CreateTestPartsSupplier()
 										.With_Name("Supplier 3")
 										.Build();
 					spyOn(supplier_1, "Purchase_Part").and.callThrough();
@@ -206,7 +208,7 @@ describe("RobotFactory", function () {
 			describe("Given 3 suppliers provide all of the same parts at different prices", function(){
 				it("Should purchase robot from 3 suppliers", function() {
 					// arrange
-					let supplier_1 = new PartsSupplierBuilder()
+					let supplier_1 = new CreateTestPartsSupplier()
 										 .With_Part(new RobotPart(PartTypes.Head,Heads.Infrared,100.99))
 										 .With_Part(new RobotPart(PartTypes.Body,Body.Triangular,400.05))
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Pinchers,99.00))
@@ -215,7 +217,7 @@ describe("RobotFactory", function () {
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Solar,898.99))
 										 .With_Name("Supplier 1")
 										 .Build();
-					let supplier_2 = new PartsSupplierBuilder()
+					let supplier_2 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Infrared,40.91))
 										.With_Part(new RobotPart(PartTypes.Body,Body.Triangular,410.05))
 										.With_Part(new RobotPart(PartTypes.Arms,Arms.Pinchers,199.00))
@@ -223,7 +225,7 @@ describe("RobotFactory", function () {
 										.With_Part(new RobotPart(PartTypes.Power,Power.Solar,990.99))
 										.With_Name("Supplier 2")
 										.Build();
-					let supplier_3 = new PartsSupplierBuilder()
+					let supplier_3 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Infrared,110.95))
 										.With_Part(new RobotPart(PartTypes.Body,Body.Triangular,401.05))
 										.With_Part(new RobotPart(PartTypes.Arms,Arms.Pinchers,95.95))
