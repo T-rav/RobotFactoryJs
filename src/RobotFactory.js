@@ -9,15 +9,15 @@ let RobotFactory = function(partsSuppliers){
   let fetch_cheapest_parts = function(){
     let parts = [];
 
-    let fetchCost = function(supplier, partType){
-      let partCostResponse = supplier.Get_Part_Cost(partType);
+    let fetchCost = function(supplier, partDescription, partType){
+      let partCostResponse = supplier.Get_Part_Cost(partDescription);
 
       if(partCostResponse.Supplier_Has_Part()){
         let partIndex = parts.findIndex(part=>{
-          return part.Type == partType;
+          return part.Description == partDescription;
         });
 
-        let lineItem = new OrderLineItem(partCostResponse.Cost, partType, supplier);
+        let lineItem = new OrderLineItem(partCostResponse.Cost, partType, partDescription, supplier);
         if(partIndex == -1){
           parts.push(lineItem)
         }else if(parts[partIndex].Cost > partCostResponse.Cost){
@@ -27,11 +27,11 @@ let RobotFactory = function(partsSuppliers){
     }
 
     _partsSuppliers.forEach(supplier => {
-      fetchCost(supplier, _headType);
-      fetchCost(supplier, _bodyType);
-      fetchCost(supplier, _armType);
-      fetchCost(supplier, _movementType);
-      fetchCost(supplier, _powerType);
+      fetchCost(supplier, _headType, PartTypes.Head);
+      fetchCost(supplier, _bodyType, PartTypes.Body);
+      fetchCost(supplier, _armType, PartTypes.Arms);
+      fetchCost(supplier, _movementType, PartTypes.Movement);
+      fetchCost(supplier, _powerType, PartTypes.Power);
     });
 
     return parts;
@@ -71,6 +71,7 @@ let RobotFactory = function(partsSuppliers){
                       _powerType = powerType;
                       return {
                         Cost_Robot:function(){
+                          // todo : handle case when not all parts types submitted
                           let parts = fetch_cheapest_parts();
                           return create_cost_response(parts);
                         }

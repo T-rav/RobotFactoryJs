@@ -1,6 +1,7 @@
-let RobotPart = function(name, cost){
+let RobotPart = function(type, description, cost){
     return {
-        Name : name,
+        Type : type,
+        Description : description,
         Cost: cost
     }
 }

@@ -5,11 +5,11 @@ describe("RobotFactory", function () {
 				it("Should build robot at supplier cost", function() {
 					// arrange
 					let supplier_1 = new PartsSupplierBuilder()
-										 .With_Part(new RobotPart(Heads.Standard, 100.99))
-										 .With_Part(new RobotPart(Body.Square, 400.05))
-										 .With_Part(new RobotPart(Arms.Boxing_Gloves,99.00))
-										 .With_Part(new RobotPart(Movement.Tracks,1235.50))
-										 .With_Part(new RobotPart(Power.Biomass,999.99))
+										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard, 100.99))
+										 .With_Part(new RobotPart(PartTypes.Body,Body.Square, 400.05))
+										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
+										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
+										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .Build();
 					let supplier_2 = new PartsSupplierBuilder().Build();
 					let supplier_3 = new PartsSupplierBuilder().Build();
@@ -32,14 +32,14 @@ describe("RobotFactory", function () {
 				it("Should build robot at cheapest cost", function() {
 					// arrange
 					let supplier_1 = new PartsSupplierBuilder()
-										 .With_Part(new RobotPart(Heads.Standard,100.99))
-										 .With_Part(new RobotPart(Body.Square,400.05))
-										 .With_Part(new RobotPart(Arms.Boxing_Gloves,99.00))
-										 .With_Part(new RobotPart(Movement.Tracks,1235.50))
-										 .With_Part(new RobotPart(Power.Biomass,999.99))
+										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard,100.99))
+										 .With_Part(new RobotPart(PartTypes.Body,Body.Square,400.05))
+										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
+										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
+										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .Build();
 					let supplier_2 = new PartsSupplierBuilder()
-										.With_Part(new RobotPart(Heads.Standard,90.99))
+										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,90.99))
 										.Build();
 					let supplier_3 = new PartsSupplierBuilder()
 										.Build();
@@ -62,25 +62,25 @@ describe("RobotFactory", function () {
 				it("Should build robot at cheapest cost", function() {
 					// arrange
 					let supplier_1 = new PartsSupplierBuilder()
-										 .With_Part(new RobotPart(Heads.Standard,100.99))
-										 .With_Part(new RobotPart(Body.Square,400.05))
-										 .With_Part(new RobotPart(Arms.Boxing_Gloves,99.00))
-										 .With_Part(new RobotPart(Movement.Tracks,1235.50))
-										 .With_Part(new RobotPart(Power.Biomass,999.99))
+										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard,100.99))
+										 .With_Part(new RobotPart(PartTypes.Body,Body.Square,400.05))
+										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
+										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
+										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .Build();
 					let supplier_2 = new PartsSupplierBuilder()
-										.With_Part(new RobotPart(Heads.Standard,40.91))
-										.With_Part(new RobotPart(Body.Square,410.05))
-										.With_Part(new RobotPart(Arms.Boxing_Gloves,199.00))
-										.With_Part(new RobotPart(Movement.Tracks,1135.50))
-										.With_Part(new RobotPart(Power.Biomass,990.99))
+										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,40.91))
+										.With_Part(new RobotPart(PartTypes.Body,Body.Square,410.05))
+										.With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,199.00))
+										.With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1135.50))
+										.With_Part(new RobotPart(PartTypes.Power,Power.Biomass,990.99))
 										.Build();
 					let supplier_3 = new PartsSupplierBuilder()
-										.With_Part(new RobotPart(Heads.Standard,110.95))
-										.With_Part(new RobotPart(Body.Square,401.05))
-										.With_Part(new RobotPart(Arms.Boxing_Gloves,95.95))
-										.With_Part(new RobotPart(Movement.Tracks,1035.55))
-										.With_Part(new RobotPart(Power.Biomass,899.90))
+										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,110.95))
+										.With_Part(new RobotPart(PartTypes.Body,Body.Square,401.05))
+										.With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,95.95))
+										.With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1035.55))
+										.With_Part(new RobotPart(PartTypes.Power,Power.Biomass,899.90))
 										.Build();
 					let suppliers = [supplier_1, supplier_2, supplier_3];
 					let robotFactory = new RobotFactory(suppliers);
@@ -105,11 +105,11 @@ describe("RobotFactory", function () {
 				it("Should purchase robot from 1 supplier", function() {
 					// arrange
 					let supplier_1 = new PartsSupplierBuilder()
-										 .With_Part(new RobotPart(Heads.Standard,100.99))
-										 .With_Part(new RobotPart(Body.Square,400.05))
-										 .With_Part(new RobotPart(Arms.Boxing_Gloves,99.00))
-										 .With_Part(new RobotPart(Movement.Tracks,1235.50))
-										 .With_Part(new RobotPart(Power.Biomass,999.99))
+										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard,100.99))
+										 .With_Part(new RobotPart(PartTypes.Body,Body.Square,400.05))
+										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
+										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
+										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .Build();
 					let supplier_2 = new PartsSupplierBuilder().Build();
 					let supplier_3 = new PartsSupplierBuilder().Build();
@@ -137,15 +137,15 @@ describe("RobotFactory", function () {
 				it("Should purchase robot from 2 suppliers", function() {
 					// arrange
 					let supplier_1 = new PartsSupplierBuilder()
-										 .With_Part(new RobotPart(Heads.Standard,100.99))
-										 .With_Part(new RobotPart(Body.Square,400.05))
-										 .With_Part(new RobotPart(Arms.Boxing_Gloves,99.00))
-										 .With_Part(new RobotPart(Movement.Tracks,1235.50))
-										 .With_Part(new RobotPart(Power.Biomass,999.99))
+										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard,100.99))
+										 .With_Part(new RobotPart(PartTypes.Body,Body.Square,400.05))
+										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
+										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
+										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .With_Name("Supplier 1")
 										 .Build();
 					let supplier_2 = new PartsSupplierBuilder()
-										.With_Part(new RobotPart(Heads.Standard,90.99))
+										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,90.99))
 										.With_Name("Supplier 2")
 										.Build();
 					let supplier_3 = new PartsSupplierBuilder()
@@ -166,11 +166,11 @@ describe("RobotFactory", function () {
 					// act
 					let actual = robotCosting.Purchase_Robot(); 
 					// assert
-					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Square");
-					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Boxing Gloves");
-					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Tracks");
-					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Biomass");
-					expect(supplier_2.Purchase_Part).toHaveBeenCalledWith("Standard Vision");
+					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Body", "Square");
+					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Arms", "Boxing Gloves");
+					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Movement","Tracks");
+					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Power", "Biomass");
+					expect(supplier_2.Purchase_Part).toHaveBeenCalledWith("Head", "Standard Vision");
 					expect(supplier_3.Purchase_Part).not.toHaveBeenCalled();
 				});
 			});
@@ -178,29 +178,29 @@ describe("RobotFactory", function () {
 				it("Should purchase robot from 3 suppliers", function() {
 					// arrange
 					let supplier_1 = new PartsSupplierBuilder()
-										 .With_Part(new RobotPart(Heads.Infrared,100.99))
-										 .With_Part(new RobotPart(Body.Triangular,400.05))
-										 .With_Part(new RobotPart(Arms.Pinchers,99.00))
-										 .With_Part(new RobotPart(Arms.Boxing_Gloves,199.00))
-										 .With_Part(new RobotPart(Movement.Wheels,1235.50))
-										 .With_Part(new RobotPart(Power.Solar,898.99))
+										 .With_Part(new RobotPart(PartTypes.Head,Heads.Infrared,100.99))
+										 .With_Part(new RobotPart(PartTypes.Body,Body.Triangular,400.05))
+										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Pinchers,99.00))
+										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,199.00))
+										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Wheels,1235.50))
+										 .With_Part(new RobotPart(PartTypes.Power,Power.Solar,898.99))
 										 .With_Name("Supplier 1")
 										 .Build();
 					let supplier_2 = new PartsSupplierBuilder()
-										.With_Part(new RobotPart(Heads.Infrared,40.91))
-										.With_Part(new RobotPart(Body.Triangular,410.05))
-										.With_Part(new RobotPart(Arms.Pinchers,199.00))
-										.With_Part(new RobotPart(Movement.Wheels,1135.50))
-										.With_Part(new RobotPart(Power.Solar,990.99))
+										.With_Part(new RobotPart(PartTypes.Head,Heads.Infrared,40.91))
+										.With_Part(new RobotPart(PartTypes.Body,Body.Triangular,410.05))
+										.With_Part(new RobotPart(PartTypes.Arms,Arms.Pinchers,199.00))
+										.With_Part(new RobotPart(PartTypes.Movement,Movement.Wheels,1135.50))
+										.With_Part(new RobotPart(PartTypes.Power,Power.Solar,990.99))
 										.With_Name("Supplier 2")
 										.Build();
 					let supplier_3 = new PartsSupplierBuilder()
-										.With_Part(new RobotPart(Heads.Infrared,110.95))
-										.With_Part(new RobotPart(Body.Triangular,401.05))
-										.With_Part(new RobotPart(Arms.Pinchers,95.95))
-										.With_Part(new RobotPart(Movement.Wheels,1035.55))
-										.With_Part(new RobotPart(Power.Solar,899.90))
-										.With_Part(new RobotPart(Power.Biomass,999.90))
+										.With_Part(new RobotPart(PartTypes.Head,Heads.Infrared,110.95))
+										.With_Part(new RobotPart(PartTypes.Body,Body.Triangular,401.05))
+										.With_Part(new RobotPart(PartTypes.Arms,Arms.Pinchers,95.95))
+										.With_Part(new RobotPart(PartTypes.Movement,Movement.Wheels,1035.55))
+										.With_Part(new RobotPart(PartTypes.Power,Power.Solar,899.90))
+										.With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.90))
 										.With_Name("Supplier 3")
 										.Build();
 					spyOn(supplier_1, "Purchase_Part").and.callThrough();
@@ -218,11 +218,11 @@ describe("RobotFactory", function () {
 					// act
 					let actual = robotCosting.Purchase_Robot();
 					// assert
-					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Triangular");
-					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Solar");
-					expect(supplier_2.Purchase_Part).toHaveBeenCalledWith("Infrared Vision");
-					expect(supplier_3.Purchase_Part).toHaveBeenCalledWith("Pinchers");
-					expect(supplier_3.Purchase_Part).toHaveBeenCalledWith("Wheels");
+					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Body", "Triangular");
+					expect(supplier_1.Purchase_Part).toHaveBeenCalledWith("Power", "Solar");
+					expect(supplier_2.Purchase_Part).toHaveBeenCalledWith("Head", "Infrared Vision");
+					expect(supplier_3.Purchase_Part).toHaveBeenCalledWith("Arms", "Pinchers");
+					expect(supplier_3.Purchase_Part).toHaveBeenCalledWith("Movement", "Wheels");
 				});
 			});
 		});

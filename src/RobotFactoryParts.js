@@ -1,3 +1,11 @@
+let PartTypes = {
+  Head: "Head",
+  Body: "Body",
+  Arms : "Arms",
+  Movement : "Movement",
+  Power : "Power"
+};
+
 let Heads = {
   Standard : "Standard Vision",
   Infrared : "Infrared Vision",

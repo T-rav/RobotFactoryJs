@@ -1,11 +1,10 @@
 let PartsSupplier = function(parts, name){
     let _parts = parts;
-    let _name = name;
 
     return {
-        Get_Part_Cost: function(partName){
+        Get_Part_Cost: function(partDescription){
             let foundPart = _parts.find(part=>{
-                return part.Name == partName;
+                return part.Description == partDescription;
             });
 
             if(foundPart){
@@ -14,9 +13,9 @@ let PartsSupplier = function(parts, name){
             
             return new PartCostResponse("Not_Found");
         },
-        Purchase_Part:function(partsToPurchase){
+        Purchase_Part:function(partType, partDescription){
             // simply assert this was called, logging here for demo
-            console.log("Purchasing " + partsToPurchase + " from "+ _name);
+            console.log("Purchasing " + partType + " with " + partDescription + " from "+ name);
         }
     }
 };

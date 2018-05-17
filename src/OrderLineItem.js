@@ -1,10 +1,11 @@
-let OrderLineItem = function(cost, partname, supplier){
+let OrderLineItem = function(cost, partType, partDescription, supplier){
     return {
-        Type : partname,
+        Type : partType,
+        Description : partDescription,
         Cost : cost,
         Supplier : supplier,
         Order_Part_From_Supplier:function(){
-            supplier.Purchase_Part(partname);
+            supplier.Purchase_Part(partType, partDescription); 
         }
     }
 }

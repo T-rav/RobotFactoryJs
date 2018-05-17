@@ -28,7 +28,7 @@ describe("PartsSupplier", function () {
             it("Should return Status of Found", function(){
                 
                 // arrange
-                let parts = [new RobotPart(Heads.Infrared, 999.99)];
+                let parts = [new RobotPart(PartTypes.Head, Heads.Infrared, 999.99)];
                 let sut = CreatePartsSupplier(parts);
                 // act
                 let actual = sut.Get_Part_Cost(Heads.Infrared);
@@ -39,7 +39,7 @@ describe("PartsSupplier", function () {
             it("Should return Cost as part price", function(){
                 
                 // arrange
-                let parts = [new RobotPart(Heads.Infrared,999.99)];
+                let parts = [new RobotPart(PartTypes.Head, Heads.Infrared,999.99)];
                 let sut = CreatePartsSupplier(parts);
                 // act
                 let actual = sut.Get_Part_Cost(Heads.Infrared);
