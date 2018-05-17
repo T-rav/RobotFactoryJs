@@ -7,21 +7,21 @@ let RobotFactory = function(partsSuppliers){
   let _powerType;
 
   let fetch_cheapest_parts = function(){
-    let parts = [];
+    let order = [];
 
     let fetchCost = function(supplier, partDescription, partType){
       let partCostResponse = supplier.Get_Part_Cost(partDescription);
 
       if(partCostResponse.Supplier_Has_Part()){
-        let partIndex = parts.findIndex(part=>{
+        let partIndex = order.findIndex(part=>{
           return part.Description == partDescription;
         });
 
         let lineItem = new OrderLineItem(partCostResponse.Cost, partType, partDescription, supplier);
         if(partIndex == -1){
-          parts.push(lineItem)
-        }else if(parts[partIndex].Cost > partCostResponse.Cost){
-          parts[partIndex] = lineItem;
+          order.push(lineItem)
+        }else if(order[partIndex].Cost > partCostResponse.Cost){
+          order[partIndex] = lineItem;
         }
       }
     }
@@ -34,22 +34,45 @@ let RobotFactory = function(partsSuppliers){
       fetchCost(supplier, _powerType, PartTypes.Power);
     });
 
-    return parts;
+    return order;
   }
 
-  let create_cost_response = function(parts){
-    let cost = 0;
-    parts.forEach(part=>{
-      cost += part.Cost;
+  let build_order_errors = function(partTypesFound){
+    let requiredParts = [PartTypes.Head, PartTypes.Body, PartTypes.Arms, PartTypes.Movement, PartTypes.Power];
+    let errors = [];
+
+    requiredParts.forEach(type=>{
+      let found = partTypesFound.includes(type);
+
+      if(!found){
+        errors.push("Could not find supplier with the requested [" + type + "]");
+      }
     });
+
+    return errors;
+  };
+
+  let create_cost_response = function(order){
+    let cost = 0;
+    let partTypes = [];
+    order.forEach(part=>{
+      cost += part.Cost;
+      partTypes.push(part.Type);
+    });
+
+    let errors = build_order_errors(partTypes);
 
     return {
       Cost: cost.toFixed(2),
-      Parts : parts,
+      Parts : order,
+      Errors : errors,
       Purchase_Robot: function(){
-        parts.forEach(lineItem=>{
+        order.forEach(lineItem=>{
           lineItem.Order_Part_From_Supplier();
         });
+      },
+      Has_Errors:function(){
+        return this.Errors.length > 0;
       }
     }
   }
@@ -71,7 +94,6 @@ let RobotFactory = function(partsSuppliers){
                       _powerType = powerType;
                       return {
                         Cost_Robot:function(){
-                          // todo : handle case when not all parts types submitted
                           let parts = fetch_cheapest_parts();
                           return create_cost_response(parts);
                         }

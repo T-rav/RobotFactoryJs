@@ -98,6 +98,35 @@ describe("RobotFactory", function () {
 				});
 			});
 		});
+		describe("When all parts not in stock", function(){
+			describe("Given all suppliers provides parts", function(){
+				it("Should return costing errors", function() {
+					// arrange
+					let supplier_1 = new PartsSupplierBuilder()
+										 .With_Part(new RobotPart(PartTypes.Head,Heads.Standard, 100.99))
+										 .With_Part(new RobotPart(PartTypes.Body,Body.Square, 400.05))
+										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
+										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
+										 .Build();
+					let supplier_2 = new PartsSupplierBuilder().Build();
+					let supplier_3 = new PartsSupplierBuilder().Build();
+					let suppliers = [supplier_1, supplier_2, supplier_3];
+					let robotFactory = new RobotFactory(suppliers);
+					// act
+					let actual = robotFactory
+									.With_Head(Heads.Standard)
+									.With_Body(Body.Square)
+									.With_Arms(Arms.Boxing_Gloves)
+									.With_Movement(Movement.Tracks)
+									.With_Power(Power.Biomass)
+									.Cost_Robot();
+					// assert
+				 	let expected = ["Could not find supplier with the requested [Arms]"];
+					expect(actual.Has_Errors()).toBeTruthy();
+					expect(actual.Errors).toEqual(expected);
+				});
+			});
+		});
 	});
 	describe("Purchase_Robot",function(){
 		describe("When all parts in stock", function(){
