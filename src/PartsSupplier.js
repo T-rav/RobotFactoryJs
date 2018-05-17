@@ -9,14 +9,14 @@ let PartsSupplier = function(parts, name){
             });
 
             if(foundPart){
-                return { Status: "Found", Cost: foundPart.Cost};
+                return new PartCostResponse("Found", foundPart.Cost);
             }
             
-            return {Status:"Not_Found"};
+            return new PartCostResponse("Not_Found");
         },
         Purchase_Part:function(partsToPurchase){
             // simply assert this was called, logging here for demo
-            console.log("Purchasing " + partsToPurchase + " from "+ name);
+            console.log("Purchasing " + partsToPurchase + " from "+ _name);
         }
     }
 };

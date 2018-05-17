@@ -11,16 +11,17 @@ let RobotFactory = function(partsSuppliers){
 
     let fetchCost = function(supplier, partType){
       let partCostResponse = supplier.Get_Part_Cost(partType);
-      
-      if(partCostResponse.Status == "Found"){
+
+      if(partCostResponse.Supplier_Has_Part()){
         let partIndex = parts.findIndex(part=>{
           return part.Type == partType;
         });
 
+        let lineItem = new OrderLineItem(partCostResponse.Cost, partType, supplier);
         if(partIndex == -1){
-          parts.push({Type:partType, Cost:partCostResponse.Cost, Supplier:supplier})
+          parts.push(lineItem)
         }else if(parts[partIndex].Cost > partCostResponse.Cost){
-          parts[partIndex] = {Type:partType, Cost:partCostResponse.Cost, Supplier:supplier};
+          parts[partIndex] = lineItem;
         }
       }
     }
@@ -47,12 +48,11 @@ let RobotFactory = function(partsSuppliers){
       Parts : parts,
       Purchase_Robot: function(){
         parts.forEach(lineItem=>{
-          lineItem.Supplier.Purchase_Part(lineItem.Type);
+          lineItem.Order_Part_From_Supplier();
         });
       }
     }
   }
-
 
   return{
     With_Head : function(headType){
@@ -71,7 +71,6 @@ let RobotFactory = function(partsSuppliers){
                       _powerType = powerType;
                       return {
                         Cost_Robot:function(){
-                        
                           let parts = fetch_cheapest_parts();
                           return create_cost_response(parts);
                         }
