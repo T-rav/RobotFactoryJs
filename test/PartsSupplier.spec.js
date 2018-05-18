@@ -59,14 +59,52 @@ describe("PartsSupplier", function () {
             });
         });
     });
+    describe("Purchase_Part", function(){
+        describe("When purchasing", function(){
+            it("Should POST a PurchasePayload to order url", function(){
+                // arrange
+                let purchaseResponse = {TransactionId:"abc-123",PurchaseTotal:99.45};
+                let orderUrl = "/order";
+                let costUrl = "/cost";
+                setupHttpRequestForSupplier(orderUrl, purchaseResponse);
+                let sut = CreatePartsSupplier(costUrl,orderUrl);
+                // act
+                sut.Purchase_Part(PartTypes.Power, Power.Solar);
+                const request = jasmine.Ajax.requests.mostRecent();
+                // assert
+                const expectedPurchasePayload = new PurchasePayload(PartTypes.Power, Power.Solar);
+                const expectedMethod = "POST";
+                const expectedUrl = "/order";
+                expect(request.url).toBe(expectedUrl);
+                expect(request.method).toBe(expectedMethod);
+                expect(request.params).toEqual(expectedPurchasePayload);
+            });
+        });
+        describe("When purchase successful", function(){
+            it("Should return transactionId and total", function(){
+                // arrange
+                let purchaseResponse = {TransactionId:"abc-123",PurchaseTotal:99.45};
+                let orderUrl = "/order";
+                let costUrl = "/cost";
+                setupHttpRequestForSupplier(orderUrl, purchaseResponse);
+                let sut = CreatePartsSupplier(costUrl,orderUrl);
+                // act
+                sut.Purchase_Part(PartTypes.Power, Power.Solar);
+                const request = jasmine.Ajax.requests.mostRecent();
+                // assert
+                const expectedPurchaseResponse = JSON.stringify(purchaseResponse);
+                expect(request.responseText).toBe(expectedPurchaseResponse);
+            });
+        });
+    });
 });
 
-function setupHttpRequestForSupplier(fetchUrl, parts) {
+function setupHttpRequestForSupplier(fetchUrl, payload) {
     jasmine.Ajax.stubRequest(fetchUrl).andReturn({
-        "responseText": JSON.stringify(parts)
+        "responseText": JSON.stringify(payload)
     });
 }
 
-function CreatePartsSupplier(fetchUrl) {
-    return new PartsSupplier("no-name", fetchUrl);
+function CreatePartsSupplier(fetchUrl, orderUrl) {
+    return new PartsSupplier("no-name", fetchUrl, orderUrl);
 }
