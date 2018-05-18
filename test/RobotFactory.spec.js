@@ -1,4 +1,10 @@
 describe("RobotFactory", function () {
+	beforeEach(function(){
+        jasmine.Ajax.install();
+    });
+    afterEach(function(){
+        jasmine.Ajax.uninstall();
+    });
 	describe("Cost_Robot",function(){
 		describe("When all parts in stock", function(){
 			describe("Given only 1 supply provides parts", function(){
@@ -10,6 +16,8 @@ describe("RobotFactory", function () {
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
+										 .With_Name("1")
+										 .With_Fetch_Url("/supplier/inventory")
 										 .Build();
 					let supplier_2 = new CreateTestPartsSupplier().Build();
 					let supplier_3 = new CreateTestPartsSupplier().Build();
@@ -37,9 +45,13 @@ describe("RobotFactory", function () {
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
+										 .With_Name("1")
+										 .With_Fetch_Url("/supplier1/inventory")
 										 .Build();
 					let supplier_2 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,90.99))
+										.With_Name("2")
+										.With_Fetch_Url("/supplier2/inventory")
 										.Build();
 					let supplier_3 = new CreateTestPartsSupplier()
 										.Build();
@@ -67,6 +79,8 @@ describe("RobotFactory", function () {
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
+										 .With_Name("1")
+										 .With_Fetch_Url("/supplier1/inventory")
 										 .Build();
 					let supplier_2 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,40.91))
@@ -74,6 +88,8 @@ describe("RobotFactory", function () {
 										.With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,199.00))
 										.With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1135.50))
 										.With_Part(new RobotPart(PartTypes.Power,Power.Biomass,990.99))
+										.With_Name("2")
+										.With_Fetch_Url("/supplier2/inventory")
 										.Build();
 					let supplier_3 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,110.95))
@@ -81,6 +97,8 @@ describe("RobotFactory", function () {
 										.With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,95.95))
 										.With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1035.55))
 										.With_Part(new RobotPart(PartTypes.Power,Power.Biomass,899.90))
+										.With_Name("3")
+										.With_Fetch_Url("/supplier3/inventory")
 										.Build();
 					let suppliers = [supplier_1, supplier_2, supplier_3];
 					let robotFactory = new RobotFactory(suppliers);
@@ -107,6 +125,8 @@ describe("RobotFactory", function () {
 										 .With_Part(new RobotPart(PartTypes.Body,Body.Square, 400.05))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
+										 .With_Name("1")
+										 .With_Fetch_Url("/supplier1/inventory")
 										 .Build();
 					let supplier_2 = new CreateTestPartsSupplier().Build();
 					let supplier_3 = new CreateTestPartsSupplier().Build();
@@ -140,6 +160,8 @@ describe("RobotFactory", function () {
 										 .With_Part(new RobotPart(PartTypes.Arms,Arms.Boxing_Gloves,99.00))
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
+										 .With_Name("1")
+										 .With_Fetch_Url("/supplier1/inventory")
 										 .Build();
 					let supplier_2 = new CreateTestPartsSupplier().Build();
 					let supplier_3 = new CreateTestPartsSupplier().Build();
@@ -173,13 +195,16 @@ describe("RobotFactory", function () {
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Tracks,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.99))
 										 .With_Name("Supplier 1")
+										 .With_Fetch_Url("/supplier1/inventory")
 										 .Build();
 					let supplier_2 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Standard,90.99))
 										.With_Name("Supplier 2")
+										.With_Fetch_Url("/supplier2/inventory")
 										.Build();
 					let supplier_3 = new CreateTestPartsSupplier()
 										.With_Name("Supplier 3")
+										.With_Fetch_Url("/supplier3/inventory")
 										.Build();
 					spyOn(supplier_1, "Purchase_Part").and.callThrough();
 					spyOn(supplier_2, "Purchase_Part").and.callThrough();
@@ -215,6 +240,7 @@ describe("RobotFactory", function () {
 										 .With_Part(new RobotPart(PartTypes.Movement,Movement.Wheels,1235.50))
 										 .With_Part(new RobotPart(PartTypes.Power,Power.Solar,898.99))
 										 .With_Name("Supplier 1")
+										 .With_Fetch_Url("/supplier1/inventory")
 										 .Build();
 					let supplier_2 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Infrared,40.91))
@@ -223,6 +249,7 @@ describe("RobotFactory", function () {
 										.With_Part(new RobotPart(PartTypes.Movement,Movement.Wheels,1135.50))
 										.With_Part(new RobotPart(PartTypes.Power,Power.Solar,990.99))
 										.With_Name("Supplier 2")
+										.With_Fetch_Url("/supplier2/inventory")
 										.Build();
 					let supplier_3 = new CreateTestPartsSupplier()
 										.With_Part(new RobotPart(PartTypes.Head,Heads.Infrared,110.95))
@@ -232,6 +259,7 @@ describe("RobotFactory", function () {
 										.With_Part(new RobotPart(PartTypes.Power,Power.Solar,899.90))
 										.With_Part(new RobotPart(PartTypes.Power,Power.Biomass,999.90))
 										.With_Name("Supplier 3")
+										.With_Fetch_Url("/supplier3/inventory")
 										.Build();
 					spyOn(supplier_1, "Purchase_Part").and.callThrough();
 					spyOn(supplier_2, "Purchase_Part").and.callThrough();

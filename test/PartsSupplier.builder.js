@@ -1,6 +1,8 @@
 let CreateTestPartsSupplier = function(){
-    let _parts = [];
     let _name = "(undefined)";
+    let _fetchUrl = "/un/defined";
+    let _parts = [];
+
     return {
         With_Part:function(part){
             _parts.push(part);
@@ -10,8 +12,19 @@ let CreateTestPartsSupplier = function(){
             _name = name;
             return this;
         },
+        With_Fetch_Url:function(fetchUrl){
+            _fetchUrl = fetchUrl;
+            return this;
+        },
         Build:function(){
-            return new PartsSupplier(_parts, _name);
+            setupHttpRequestForSupplier(_fetchUrl, _parts);
+            return new PartsSupplier(_name, _fetchUrl);
         }
     }
+}
+
+function setupHttpRequestForSupplier(fetchUrl, parts) {
+    jasmine.Ajax.stubRequest(fetchUrl).andReturn({
+        "responseText": JSON.stringify(parts)
+    });
 }
